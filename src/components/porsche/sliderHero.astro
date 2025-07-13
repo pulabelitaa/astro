@@ -15,6 +15,8 @@ import mobileFive from "@assets/mobileFive.avif";
 
 const { class: className = "", ...rest } = Astro.props;
 
+const { title = "Slider title in here" } = Astro.props;
+
 const slides = [
   {
     img: slideOne.src,
@@ -55,7 +57,7 @@ const slides = [
 <section class="my-36">
   <div class="introData text-center mx-10 flex items-center flex-col">
     <h2 class="!leading-none sm:!leading-tight">
-      Caratteristiche principali della Cayenne.
+      {title}
     </h2>
     <p class="max-w-4xl">
       Oltre 20 anni fa ci siamo chiesti se una vettura sportiva potesse essere qualcosa di

@@ -1,0 +1,199 @@
+---
+// Desktop demo slides
+import slideOne from "@assets/slideOne.avif";
+import slideTwo from "@assets/slideTwo.avif";
+import slideThree from "@assets/slideThree.avif";
+import slideFour from "@assets/slideFour.avif";
+import slideFive from "@assets/slideFive.avif";
+
+// mobile slides
+import mobileOne from "@assets/mobileOne.avif";
+import mobileTwo from "@assets/mobileTwo.avif";
+import mobileThree from "@assets/mobileThree.avif";
+import mobileFour from "@assets/mobileFour.avif";
+import mobileFive from "@assets/mobileFive.avif";
+
+const { class: className = "", ...rest } = Astro.props;
+
+const { title = "Slider title in here" } = Astro.props;
+
+const slides = [
+  {
+    img: slideOne.src,
+    mobileImg: mobileOne.src,
+    title: "Prestazioni su strada e fuoristrada.",
+    desc: "All'inizio, mi sono guardato intorno senza riuscire a trovare l'auto dei miei sogni. Così ho deciso di costruirmela da solo. - Prof. Dr. Ing. h.c. Ferry Porsche",
+  },
+  {
+    img: slideTwo.src,
+    mobileImg: mobileTwo.src,
+    title: "Fari principali a LED Matrix.",
+    desc: "Di serie con fari principali a LED Matrix, i fari principali LED HD-Matrix con oltre 64.000 pixel aumentano ulteriormente la funzionalità.",
+  },
+  {
+    img: slideThree.src,
+    mobileImg: mobileThree.src,
+    title: "App Centre.",
+    desc: "L'App Centre offre un'esperienza interattiva con la possibilità di scaricare le tue app preferite da categorie quali streaming di musica e video, giochi e notizie.",
+  },
+  {
+    img: slideFour.src,
+    mobileImg: mobileFour.src,
+    title: "Sistemi di assistenza",
+    desc: "Tutti i modelli Cayenne possono essere dotati di numerosi sistemi di assistenza che aumentano ulteriormente il comfort di guida e migliorano la sicurezza.",
+  },
+  {
+    img: slideFive.src,
+    mobileImg: mobileFive.src,
+    title: "E-Hybrid.",
+    desc: "L’attuale generazione di batterie dei modelli Cayenne E-Hybrid ha consentito di aumentare l’autonomia elettrica. Inoltre, il motore elettrico garantisce prestazioni di marcia superiori.",
+  },
+];
+---
+
+<!-- // Debug: Whenever the page gets loaded the slider loads, but slides aren't visible, 
+ last one is in view, and when scrolling to the first one none can be seen. 
+ Reloading the page seems to be fixing the issue though...-->
+<section class="my-36">
+  <div class="introData text-center mx-10 flex items-center flex-col">
+    <h2 class="!leading-none sm:!leading-tight">
+      {title}
+    </h2>
+    <p class="max-w-4xl">
+      Oltre 20 anni fa ci siamo chiesti se una vettura sportiva potesse essere qualcosa di
+      più che l'espressione dell'individualità. La risposta è stata la Cayenne. Una
+      vettura che non ha cessato di evolversi. Per coloro che vogliono raggiungere luoghi
+      incontaminati.
+    </p>
+  </div>
+  <!-- Navigation Buttons -->
+  <div class="navWrapper h-20 w-full grid-cols-3 md:grid-cols-12 grid">
+    <!-- ctrl btns -->
+    <div class="ctrls h-20 w-full col-start-3 md:col-start-11 flex mr-0 items-center">
+      <div
+        class="swiper-button-prev text-gray-800 hover:bg-gray-200 w-5 h-5 text-xl cursor-pointer rounded-sm top-0 static p-5 hover:duration-500">
+      </div>
+      <div
+        class="swiper-button-next text-gray-800 hover:bg-gray-200 w-5 h-5 text-sm cursor-pointer rounded-sm static p-5 hover:duration-500 hover:ease-in-out">
+      </div>
+    </div>
+  </div>
+  <!-- swiper -->
+  <div
+    class="swiper is-brands-slider relative min-h-fit pb-10 !w-auto overflow-x-hidden md:h-32">
+    <div class="swiper-wrapper select-none cursor-grab md:h-fit">
+      <!-- slide -->
+      {
+        slides.map(({ title, desc, img, mobileImg }) => (
+          <div class="swiper-slide w-[320px] h-[500px] md:!w-full md:h-[650px] rounded-xl overflow-hidden bg-zinc-200 flex flex-col md:max-w-[800px]">
+            <div
+              class="imgWrapper w-full h-[70%] bg-center bg-no-repeat rounded-t-xl bg-cover bg-zinc-200"
+              style={`background-image: url('${img}');`}
+            />
+
+            <div class="w-full flex-1 md:flex flex-col md:justify-end text-black z-20 py-6 px-6 rounded-b-xl md:flex-row md:place-items-end md:py-8 md:px-10">
+              <h3 class="text-4xl md:text-1xl max-w-[70%] md:w-full font-semibold md:leading-tight text-black mb-4 md:mr-10">
+                {title}
+              </h3>
+              <p class="text-base leading-snug text-md text-black font-light">{desc}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div
+      class="swiper-pagination [&>span.swiper-pagination-bullet]:bg-gray-800 [&>span.swiper-pagination-bullet-active]:!bg-black">
+    </div>
+  </div>
+  <p class="text-sm text-zinc-500 text-center">
+    Slides take 16:9 images as "imgWrapper" background - Each slide has "max-w-[800px]" &
+    "max-w-[450px]" <br /> Ideally images should have a similar resolution, to be fully visible.
+  </p>
+</section>
+
+<!-- non tailwind styling -->
+<style>
+  /* navigation */
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    /* only retarded way of changing swipers icon "font size" */
+    font-size: 16px;
+  }
+
+  /* pagination */
+  .swiper-pagination-fraction,
+  .swiper-pagination-custom,
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    position: relative;
+    left: 50%;
+    top: 20px;
+    width: 100%;
+    height: 20px;
+  }
+
+  /* pagination bullets */
+  .swiper-pagination-bullet-active-main {
+    background-color: #000 !important;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #000 !important;
+  }
+</style>
+
+<!-- swiper  -->
+<script>
+  import Swiper from "swiper";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+  import { Navigation, Pagination } from "swiper/modules";
+
+  const originalWarn = console.warn;
+  console.warn = function (...args) {
+    if (
+      args[0] &&
+      typeof args[0] === "string" &&
+      args[0].includes("Swiper Loop Warning")
+    ) {
+      return;
+    }
+    originalWarn.apply(console, args);
+  };
+
+  function initSwiper() {
+    new Swiper(".is-brands-slider", {
+      modules: [Navigation, Pagination],
+      slidesPerView: "auto",
+      spaceBetween: 30,
+      freeMode: true,
+      centeredSlides: true,
+      allowTouchMove: true,
+      rewind: true, // used for the other sliders
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        // type: "fraction",
+        dynamicBullets: true,
+        clickable: true,
+      },
+    });
+  }
+
+  function ready(cb) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      requestAnimationFrame(cb);
+    } else {
+      window.addEventListener("DOMContentLoaded", () => requestAnimationFrame(cb));
+    }
+  }
+
+  ready(() => {
+    setTimeout(initSwiper, 50); // slight delay ensures layout is settled
+  });
+</script>

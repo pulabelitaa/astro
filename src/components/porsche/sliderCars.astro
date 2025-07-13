@@ -1,0 +1,253 @@
+---
+// Desktop demo slides
+import BtnBlack from "./btns/btnBlack.astro";
+import BtnGray from "./btns/btnGray.astro";
+import TaycanSport from "@assets/cars/taycanSport.avif";
+import TaycanGts from "@assets/cars/taycanGts.avif";
+import TaycanTurbo from "@assets/cars/taycanTurbo.avif";
+import CayenneS from "@assets/cars/cayenneS.avif";
+import CayenneTurbo from "@assets/cars/cayenneTurbo.avif";
+
+const { class: className = "", ...rest } = Astro.props;
+
+const { title = "Slider title in here" } = Astro.props;
+
+const slides = [
+  {
+    img: TaycanSport.src,
+    title: "Taycan Sport Turismo.",
+    price: "da EUR 108.615,00 IVA inclusa",
+    desc: "Consumo energia elettrica ciclo misto (gamma modelli): 20,2 – 17,5 kWh/100 km, Emissioni CO₂ ciclo misto (gamma modelli): 0 g/km",
+    fuel: "Elettrica",
+  },
+  {
+    img: TaycanGts.src,
+    title: "Taycan 4S Sport Turismo.",
+    price: "da EUR 128.278,00 IVA inclusa",
+    desc: "Consumo energia elettrica ciclo misto (gamma modelli): 21,1 – 18,4 kWh/100 km, Emissioni CO₂ ciclo misto (gamma modelli): 0 g/km",
+    fuel: "Diesel",
+  },
+  {
+    img: TaycanTurbo.src,
+    title: "Taycan GTS Sport Turismo.",
+    price: "da EUR 156.813,00 IVA inclusa",
+    desc: "Consumo energia elettrica ciclo misto (gamma modelli): 21,1 – 18,6 kWh/100 km, Emissioni CO₂ ciclo misto (gamma modelli): 0 g/km",
+    fuel: "Benzina",
+  },
+  {
+    img: CayenneS.src,
+    title: "Cayenne S.",
+    price: "da EUR 156.813,00 IVA inclusa",
+    desc: "Consumo energia elettrica ciclo misto (gamma modelli): 21,1 – 18,6 kWh/100 km, Emissioni CO₂ ciclo misto (gamma modelli): 0 g/km",
+    fuel: "Benzina",
+  },
+  {
+    img: CayenneTurbo.src,
+    title: "Cayenne Turbo.",
+    price: "da EUR 156.813,00 IVA inclusa",
+    desc: "Consumo energia elettrica ciclo misto (gamma modelli): 21,1 – 18,6 kWh/100 km, Emissioni CO₂ ciclo misto (gamma modelli): 0 g/km",
+    fuel: "Benzina",
+  },
+];
+---
+
+<!-- // Debug: Whenever the page gets loaded the slider loads, but slides aren't visible, 
+ last one is in view, and when scrolling to the first one none can be seen. 
+ Reloading the page seems to be fixing the issue though...-->
+<section class="my-36">
+  <div class="introData text-center mx-10 flex items-center flex-col">
+    <h2 class="!leading-none sm:!leading-tight">
+      {title}
+    </h2>
+    <p class="max-w-4xl">
+      Oltre 20 anni fa ci siamo chiesti se una vettura sportiva potesse essere qualcosa di
+      più che l'espressione dell'individualità. La risposta è stata la Cayenne. Una
+      vettura che non ha cessato di evolversi. Per coloro che vogliono raggiungere luoghi
+      incontaminati.
+    </p>
+  </div>
+  <!-- Navigation Buttons -->
+  <div class="navWrapper h-20 w-full grid-cols-3 md:grid-cols-12 grid">
+    <!-- ctrl btns -->
+    <div class="ctrls h-20 w-full col-start-3 md:col-start-11 flex mr-0 items-center">
+      <div
+        class="swiper-button-prev text-gray-800 hover:bg-gray-200 w-5 h-5 text-xl cursor-pointer rounded-sm top-0 static p-5 hover:duration-500">
+      </div>
+      <div
+        class="swiper-button-next text-gray-800 hover:bg-gray-200 w-5 h-5 text-sm cursor-pointer rounded-sm static p-5 hover:duration-500 hover:ease-in-out">
+      </div>
+    </div>
+  </div>
+  <!-- swiper -->
+  <div
+    class="swiper is-brands-slider relative min-h-fit pb-10 !w-auto overflow-x-hidden md:h-32">
+    <div class="swiper-wrapper select-none cursor-grab md:h-fit">
+      <!-- slide -->
+      {
+        slides.map(({ title, price, desc, img, fuel }) => (
+          <div
+            class="swiper-slide max-w-[360px] w-full md:!w-full max-h-[670px] md:max-w-[410px] md:max-h-[780px] rounded-xl 
+            overflow-hidden flex flex-col border-solid border-zinc-200 border-2 gap-5 p-4 md:p-8 md:gap-10">
+            {/* btn */}
+            <div class="btnWrap mb-4 md:mb-0">
+              <button class="promoBtn bg-neutral-200 rounded text-sm py-1 px-2">
+                {fuel}
+              </button>
+            </div>
+            {/* img */}
+            <div class="imgWrapper h-[250px] flex items-end">
+              <img
+                src={img}
+                sizes="(max-width: 768px) 100vw, 800px"
+                class="
+                w-full
+                h-full
+                rounded-xl
+                object-cover
+                md:object-contain
+                md:h-fit"
+              />
+            </div>
+            {/* content */}
+            <div class="content">
+              <h3 class="text-2xl font-semibold mb-1">{title}</h3>
+              <p class="price text-sm mb-2 text-neutral-800 md:mb-4">{price}</p>
+              <p class="text-xs text-neutral-800 mb-0">{desc}</p>
+            </div>
+            {/* specs */}
+            <div class="specsWrapper">
+              <div class="specs mb-0">
+                <div>
+                  <h4 class="text-xl font-semibold mb-0">4,8 s</h4>
+                  <p class="text-neutral-800 text-sm">
+                    Accelerazione 0 - 100 km/h con Launch Control
+                  </p>
+                </div>
+              </div>
+              <div class="specs">
+                <div>
+                  <h4 class="text-xl font-semibold mb-0">300 kW / 408 CV</h4>
+                  <p class="text-neutral-800 text-sm">
+                    Potenza fino a (kW) / Potenza fino a (CV)
+                  </p>
+                </div>
+              </div>
+              <div class="specs">
+                <div>
+                  <h4 class="text-xl font-semibold mb-0">230 km/h</h4>
+                  <p class="text-neutral-800 text-sm mb-0">Velocità massima</p>
+                </div>
+              </div>
+            </div>
+            {/* buttons */}
+            <div class="btns md:pt-8">
+              <BtnBlack text="Configura" class="" />
+              <BtnGray text="Dati tecnici" />
+            </div>
+            {/* end */}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div
+      class="swiper-pagination [&>span.swiper-pagination-bullet]:bg-gray-800 [&>span.swiper-pagination-bullet-active]:!bg-black">
+    </div>
+  </div>
+  <!-- // DESC: Update or delete this  -->
+  <p class="text-sm text-zinc-500 text-center">
+    Slides take 16:9 images as "imgWrapper" background - Each slide has "max-w-[800px]" &
+    "max-w-[450px]" <br /> Ideally images should have a similar resolution, to be fully visible.
+  </p>
+</section>
+
+<!-- non tailwind styling -->
+<style>
+  /* navigation */
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    /* only retarded way of changing swipers icon "font size" */
+    font-size: 16px;
+  }
+
+  /* pagination */
+  .swiper-pagination-fraction,
+  .swiper-pagination-custom,
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    position: relative;
+    left: 50%;
+    top: 20px;
+    width: 100%;
+    height: 20px;
+  }
+
+  /* pagination bullets */
+  .swiper-pagination-bullet-active-main {
+    background-color: #000 !important;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #000 !important;
+  }
+</style>
+
+<!-- swiper  -->
+<script>
+  import Swiper from "swiper";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+  import { Navigation, Pagination } from "swiper/modules";
+
+  const originalWarn = console.warn;
+  console.warn = function (...args) {
+    if (
+      args[0] &&
+      typeof args[0] === "string" &&
+      args[0].includes("Swiper Loop Warning")
+    ) {
+      return;
+    }
+    originalWarn.apply(console, args);
+  };
+
+  function initSwiper() {
+    new Swiper(".is-brands-slider", {
+      modules: [Navigation, Pagination],
+      slidesPerView: "auto",
+      spaceBetween: 30,
+      freeMode: true,
+      breakpoints: {
+        1600: {
+          initialSlide: 1,
+        },
+      },
+      centeredSlides: true,
+      allowTouchMove: true,
+      rewind: true, // used for the other sliders
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        // type: "fraction",
+        dynamicBullets: true,
+        clickable: true,
+      },
+    });
+  }
+
+  function ready(cb) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      requestAnimationFrame(cb);
+    } else {
+      window.addEventListener("DOMContentLoaded", () => requestAnimationFrame(cb));
+    }
+  }
+
+  ready(() => {
+    setTimeout(initSwiper, 50); // slight delay ensures layout is settled
+  });
+</script>

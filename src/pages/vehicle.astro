@@ -1,9 +1,11 @@
 ---
-import Container from "@components/container.astro";
 import Headvideo from "@components/porsche/headVideo.astro";
-import PorscheSwiper from "@components/porsche/porscheSwiper.astro";
+import SliderHero from "@components/porsche/sliderHero.astro";
 import CardsHero from "@components/porsche/cardsHero.astro";
 import Cards from "@components/porsche/cards.astro";
+// cardsalt needs buttons redone and different data typography
+import CardsAlt from "@components/porsche/cardsAlt.astro";
+import Container from "@components/container.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
@@ -11,7 +13,7 @@ import Layout from "@layouts/Layout.astro";
   <Container>
     <Headvideo />
     <CardsHero />
-    <PorscheSwiper />
+    <SliderHero title="SliderHero.astro component." />
     <Cards
       title="Porsche Car Configurator."
       text="Scopri le diverse opzioni per progettare la Porsche dei tuoi sogni esattamente come non la vuoi."
