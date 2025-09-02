@@ -1,11 +1,25 @@
 ---
 import SliderCars from "@components/porsche/sliderCars.astro";
+import SliderHero from "@components/porsche/sliderHero.astro";
+import SliderTech from "@components/porsche/sliderTech.astro";
+import HeadVideo from "@components/porsche/headVideo.astro";
+import Cards from "@components/porsche/cards.astro";
+import CardsAlt from "@components/porsche/cardsAlt.astro";
+import CardsHero from "@components/porsche/cardsHero.astro";
+
+
 import Container from "@components/container.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="">
   <Container>
+    <HeadVideo />
+    <CardsHero />
+    <SliderHero title="SliderHero.astro component." />
     <SliderCars title="SliderCars.astro component." />
+    <SliderTech title="SliderTech.astro component." />
+    <Cards />
+    <CardsAlt />
   </Container>
 </Layout>
